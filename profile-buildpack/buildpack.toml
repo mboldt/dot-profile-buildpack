@@ -5,4 +5,4 @@ api = "0.7"
   version = "0.0.1"
 
 [[stacks]]
-  id = "io.buildpacks.stacks.bionic"
+  id = "io.buildpacks.samples.stacks.bionic"

@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
-exit 0
+set -euo pipefail
+
+if [[ ! -f .profile ]]
+then
+  exit 100
+fi

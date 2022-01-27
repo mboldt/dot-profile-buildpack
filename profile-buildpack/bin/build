@@ -2,8 +2,27 @@
 
 set -euo pipefail
 
-layers_dir="$1"
-env_dir="$2/env"
-plan_path="$3"
+echo '---> .profile buildpack'
 
-exit 0
+layersdir="$1"
+dotprofilelayer="$layersdir/dotprofile"
+execddir="$dotprofilelayer/exec.d"
+execdfile="$execddir/dotprofile.sh"
+
+mkdir -p "$execddir"
+
+cat >"$execdfile" <<EOF
+#!/bin/bash
+
+set -eo
+
+source .profile
+env | sed 's/=/ = "/' | sed 's/$/"/' >&3
+EOF
+
+chmod +x "$execdfile"
+
+cat >"$dotprofilelayer.toml" <<EOF
+[types]
+launch = true
+EOF
